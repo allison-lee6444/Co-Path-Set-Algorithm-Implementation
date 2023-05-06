@@ -161,7 +161,7 @@ checkB2 :: UGraph Int () -> Maybe (Int, [[Edge Int ()]])
 checkB2 graph =
   let all_possible_v = find_deg_ge3_vertices graph
   in case all_possible_v of
-    [] -> trace ("why do we have nothing in B2???\n" ++ show graph ++"\n"++show (connected_components graph)++show(is_co_path graph) ) Nothing
+    [] -> Nothing
     _ ->
      let chosen_v = head all_possible_v
          degree_v = vertexDegree graph chosen_v
@@ -228,7 +228,7 @@ find_co_path_set graph prev_delete_set k =
         (_,Just (new_graph, delete_set), _,_,_) -> find_co_path_set new_graph (prev_delete_set ++ delete_set) (k - (length delete_set))
         (_,_,Just (degree_v, delete_set_branches),_,_) -> branching graph delete_set_branches (k - degree_v + 2) prev_delete_set
         (_,_,_,Just (degree_v, delete_set_branches),_) -> branching graph delete_set_branches (k - degree_v + 2) prev_delete_set
---        _ -> trace ("not matching any cases!\n"++)
+
 
 -- pretty print edges
 print_edges :: [Edge Vertex ()] -> IO()
